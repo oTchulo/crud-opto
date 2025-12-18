@@ -21,25 +21,23 @@ public class Paciente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank
-	@Column(nullable= false)
+	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
-	@NotBlank
-	@Column(nullable= false,unique= true, length = 14)
+	@NotBlank(message = "CPF é obrigatório")
+	@Column(nullable = false, unique = true, length = 14)
 	private String cpf;
-	@NotNull
-	@Min(6)
+	@NotNull(message = "Idade é obrigatória")
+	@Min(value = 6, message = "Idade mínima é 6 anos")
 	private Integer idade;
-	@NotBlank
+	@NotBlank(message = "Endereço é obrigatório")
 	private String endereco;
-	@NotNull
+	@NotNull(message = "Grau do olho direito é obrigatório")
 	private Double grauOlhoDireito;
-	@NotNull
+	@NotNull(message = "Grau do olho esquerdo é obrigatório")
 	private Double grauOlhoEsquerdo;
 	private String doenca;
-	@NotNull
-	@NotNull
-	@PastOrPresent
+	@NotNull(message = "Data da consulta é obrigatória")
+	@PastOrPresent(message = "Data da consulta não pode ser futura")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private LocalDate dataConsulta;
 	
