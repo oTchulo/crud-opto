@@ -1,10 +1,12 @@
 package com.breno.crudoptometrista.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.breno.crudoptometrista.exception.PacienteNotFoundException;
 import com.breno.crudoptometrista.model.Paciente;
 import com.breno.crudoptometrista.repository.PacienteRepository;
-import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PacienteService {
@@ -18,11 +20,13 @@ public class PacienteService {
         }
         return pacienteRepository.save(paciente);
     }
+    
     public List<Paciente> listarTodos() {
         return pacienteRepository.findAll();
     }
-    public Optional<Paciente> buscarPorId(Long id) {
-        return pacienteRepository.findById(id);
+    public Paciente buscarPorId(Long id) {
+        return pacienteRepository.findById(id)
+                .orElseThrow(() -> new PacienteNotFoundException(id));
     }
     public Paciente atualizar(Long id, Paciente pacienteAtualizado) {
         return pacienteRepository.findById(id)

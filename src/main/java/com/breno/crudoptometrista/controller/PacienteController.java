@@ -23,14 +23,12 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
     @GetMapping
-    public ResponseEntity<List<Paciente>> listar() {
+    public ResponseEntity<List<Paciente>> listarTodos() {
         return ResponseEntity.ok(pacienteService.listarTodos());
     }
     @GetMapping("/{id}")
     public ResponseEntity<Paciente> buscarPorId(@PathVariable Long id) {
-        return pacienteService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    	return ResponseEntity.ok(pacienteService.buscarPorId(id));
     }
     @PutMapping("/{id}")
     public ResponseEntity<Paciente> atualizar(

@@ -38,5 +38,15 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(body);
     }
+    @ExceptionHandler(PacienteNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handlePacienteNotFound(PacienteNotFoundException ex) {
+        Map<String, Object> body= new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", 404);
+        body.put("error", "Not Found");
+        body.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    }
+
 
 }
